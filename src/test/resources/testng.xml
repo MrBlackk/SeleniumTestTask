@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="SuiteNumberOne" verbose="7" >
+    <test name="SsLvTest" >
+        <classes>
+            <class name="tests.MacBooksComparisonTest"/>
+        </classes>
+    </test>
+</suite>
