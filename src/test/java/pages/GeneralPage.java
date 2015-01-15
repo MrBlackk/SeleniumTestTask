@@ -29,7 +29,7 @@ public class GeneralPage extends TestBase {
 
     //Page Header Methods
     public void openSearchPage(){
-
+        elementIsLocated(getLocator("openSearch")).click();
     }
 
     public void changeLanguage(){

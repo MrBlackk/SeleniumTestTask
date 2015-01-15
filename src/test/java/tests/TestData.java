@@ -15,6 +15,9 @@ public class TestData {
     public static final String SS_LV_URL = "https://www.ss.lv/";
     public static final String SS_LV_RU_URL = "https://www.ss.lv/ru/";
     public static final String ELECTRONICS_RU_URL = "https://www.ss.lv/ru/electronics/";
+    public static final String ELECTRONICS_SEARCH_RU_URL = "https://www.ss.lv/ru/electronics/search/";
+    public static final String SEARCH_RESULTS_RU_URL = "https://www.ss.lv/ru/electronics/search-result/?q=";
+    public static final String SHOW_SELECTED_RESULTS_RU_URL = "https://www.ss.lv/ru/show-selected/";
 
 
 

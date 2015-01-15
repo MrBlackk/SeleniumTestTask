@@ -5,5 +5,6 @@ package pages;
  */
 public class ElectronicsPage extends GeneralPage {
 
+    //For future test purposes
 
 }
