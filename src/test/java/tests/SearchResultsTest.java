@@ -3,7 +3,6 @@ package tests;
 import core.TestBase;
 import org.testng.annotations.Test;
 import pages.*;
-import sun.security.timestamp.TSRequest;
 
 import static org.testng.Assert.*;
 
@@ -26,29 +25,29 @@ public class SearchResultsTest extends TestBase{
 
     @Test(dependsOnMethods = "setUpPreconditions")
     public void changeLanguage(){
-        page.changeLanguage();
-        page.isRussianPageLoaded(TestData.SS_LV_RU_URL);
+        page.changeLanguageToRussian();
+        assertTrue(page.isRussianPageLoaded(TestData.SS_LV_RU_URL));
     }
 
     @Test(dependsOnMethods = "changeLanguage")
     public void openElectronicsPage(){
         page.openElectronicsPage();
-        electrPage.isOpened(TestData.ELECTRONICS_RU_URL);
+        assertTrue(electrPage.isOpened(TestData.ELECTRONICS_RU_URL));
     }
 
     @Test(dependsOnMethods = "openElectronicsPage")
     public void openSearchPageAndSelectParameters() throws InterruptedException {
         electrPage.openSearchPage();
-        searchPage.isOpened(TestData.ELECTRONICS_SEARCH_RU_URL);
-        searchPage.inputSearchPhrase("Персональные компьютеры");
-        searchPage.selectCityOrRegion("Рига");
-        searchPage.changeSearchPeriod("За последний месяц");
+        assertTrue(searchPage.isOpened(TestData.ELECTRONICS_SEARCH_RU_URL));
+        searchPage.inputSearchPhrase(TestData.SEARCH_PHRASE);
+        searchPage.selectCityOrRegion(TestData.CITY_REGION);
+        searchPage.changeSearchPeriod(TestData.SEARCH_PERIOD);
         searchPage.clickSearchButton();
     }
 
     @Test(dependsOnMethods = "openSearchPageAndSelectParameters")
     public void sortResultsAndOpenAdvancedSearch(){
-        searchResultsPage.isOpened(TestData.SEARCH_RESULTS_RU_URL);
+        assertTrue(searchResultsPage.isOpened(TestData.SEARCH_RESULTS_RU_URL));
         searchResultsPage.sortByPrice();
         searchResultsPage.clickSaleButton();
         searchResultsPage.openAdvancedSearch();
@@ -56,28 +55,22 @@ public class SearchResultsTest extends TestBase{
 
     @Test(dependsOnMethods = "sortResultsAndOpenAdvancedSearch")
     public void setMinAndMaxPrice(){
-        searchPage.isOpened(TestData.ELECTRONICS_SEARCH_RU_URL);
-        searchPage.inputMinAndMaxPrice(0,300);
+        assertTrue(searchPage.isOpened(TestData.ELECTRONICS_SEARCH_RU_URL));
+        searchPage.inputMinAndMaxPrice(TestData.MIN_PRICE,TestData.MAX_PRICE);
         searchPage.changeSearchPeriod("За последний месяц");
         searchPage.clickSearchButton();
     }
 
     @Test(dependsOnMethods = "setMinAndMaxPrice")
     public void selectSearchResults(){
-        searchResultsPage.isOpened(TestData.SEARCH_RESULTS_RU_URL);
-        System.out.println(searchResultsPage.firstText);
-        searchResultsPage.selectThreeSearchResults(3, 1, 2);
-        System.out.println(searchResultsPage.firstText);
-        System.out.println(searchResultsPage.secondText);
-        System.out.println(searchResultsPage.thirdText);
+        assertTrue(searchResultsPage.isOpened(TestData.SEARCH_RESULTS_RU_URL));
+        searchResultsPage.selectThreeSearchResults(2, 0, 1);
         searchResultsPage.clickShowSelected();
     }
 
     @Test(dependsOnMethods = "selectSearchResults")
     public void verifySelectedSearchResults(){
-        showSelectedPage.isOpened(TestData.SHOW_SELECTED_RESULTS_RU_URL);
-        showSelectedPage.isPageContainsCorrectSearchResults(searchResultsPage.firstText, searchResultsPage.secondText, searchResultsPage.thirdText);
+        assertTrue(showSelectedPage.isOpened(TestData.SHOW_SELECTED_RESULTS_RU_URL));
+        assertTrue(showSelectedPage.isPageContainsCorrectSearchResults(searchResultsPage.firstResult, searchResultsPage.secondResult, searchResultsPage.thirdResult));
     }
-
-
 }

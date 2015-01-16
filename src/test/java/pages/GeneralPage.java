@@ -2,7 +2,6 @@ package pages;
 
 import core.TestBase;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import utilities.Log4Test;
 
@@ -10,8 +9,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Properties;
-
-import static org.testng.AssertJUnit.assertFalse;
 
 /**
  * Created by qa on 1/15/2015.
@@ -30,14 +27,19 @@ public class GeneralPage extends TestBase {
     //Page Header Methods
     public void openSearchPage(){
         elementIsLocated(getLocator("openSearch")).click();
+        Log4Test.info("Open Search");
     }
 
-    public void changeLanguage(){
-        elementIsLocated(getLocator("langClass")).click();
+    public void changeLanguageToRussian(){
+        if (elementIsLocated(getLocator("changeLang")).getText().equals("RU")){
+            elementIsLocated(getLocator("changeLang")).click();
+            Log4Test.info("Change language to Russian");
+        }
+        else {
+            Log4Test.error("Russian language is already selected");
+        }
+
     }
-
-
-
 
     //Verify presence of element on page
     public WebElement elementIsLocated(By element){
@@ -66,7 +68,7 @@ public class GeneralPage extends TestBase {
     }
 
 
-    //Object map parser
+    //Object map
     public By getLocator(String logicalElementName){
 
         Properties properties = new Properties();
@@ -108,24 +110,6 @@ public class GeneralPage extends TestBase {
                 e.printStackTrace();
             }
         }
-
         return null;
     }
-    public void waitForPageLoaded(){
-
-        ExpectedCondition<Boolean> expectation = new
-                ExpectedCondition<Boolean>() {
-                    @Override
-                    public Boolean apply(WebDriver driver) {
-                        return ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete");
-                    }
-                };
-        try {
-            wait.until(expectation);
-        }
-        catch (Throwable error){
-            assertFalse("Timeout waiting for Page Load Request to complete.", true);
-        }
-    }
-
 }

@@ -31,7 +31,7 @@ public class TestBase {
 
     @AfterSuite
     public void tearDown(){
-        //webDriver.quit();
+        webDriver.quit();
     }
 
 }

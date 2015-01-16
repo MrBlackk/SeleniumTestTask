@@ -3,7 +3,7 @@
 <suite name="SuiteNumberOne" verbose="7" >
     <test name="SsLvTest" >
         <classes>
-            <class name="tests.MacBooksComparisonTest"/>
+            <class name="tests.SearchResultsTest"/>
         </classes>
     </test>
 </suite>

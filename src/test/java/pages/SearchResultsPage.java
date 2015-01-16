@@ -1,7 +1,7 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import utilities.Log4Test;
 
 import java.util.List;
@@ -11,13 +11,9 @@ import java.util.List;
  */
 public class SearchResultsPage extends GeneralPage {
 
-    public static final String RESULT_CHECKBOX = ".//*[@id='maindv2']/tbody/tr/td/table[4]/tbody/tr[%s]/td[1]/input";
-    public static final String resultInfo = ".//*[@id='maindv2']/tbody/tr/td/table[4]/tbody/tr[%s]/td[3]/div[2]";
-
-    public String firstText = "";
-    public String secondText = "";
-    public String thirdText = "";
-
+    public String firstResult;
+    public String secondResult;
+    public String thirdResult;
 
     @Override
     public boolean isOpened(String URL) {
@@ -26,43 +22,46 @@ public class SearchResultsPage extends GeneralPage {
 
     public void sortByPrice(){
         elementIsLocated(getLocator("sortByPrice")).click();
+        Log4Test.info("Click sort by price");
     }
 
     public void clickSaleButton(){
         elementIsLocated(getLocator("saleButton")).click();
+        Log4Test.info("Click Sales button");
     }
 
     public void openAdvancedSearch(){
         elementIsLocated(getLocator("advancedSearch")).click();
+        Log4Test.info("Click Advanced search");
     }
 
     public int getNumberOfResults(){
         List<WebElement> listOfResults = elementsAreLocated(getLocator("allResults"));
-        System.out.println(listOfResults.size() - 1);
-        return listOfResults.size() - 1; // -1 to remove header
-
+        return listOfResults.size();
     }
 
     public void selectThreeSearchResults(int first, int second, int third){
-        //ToDO field getNumberOfResults()
-        //ToDO f s l should be different
-        if (first <= getNumberOfResults() && second <= getNumberOfResults() && third <= getNumberOfResults()){
-            System.out.println("first, second and third good");
-            elementIsLocated(By.xpath(String.format(RESULT_CHECKBOX, first + 1))).click(); // + 1
-            elementIsLocated(By.xpath(String.format(RESULT_CHECKBOX, second + 1))).click(); // + 1
-            elementIsLocated(By.xpath(String.format(RESULT_CHECKBOX, third + 1))).click(); // + 1
+        int numberOfResults = getNumberOfResults();
+        List<WebElement> listOfCheckboxes = elementsAreLocated(getLocator("allCheckboxes"));
+        if (first <= numberOfResults && second <= numberOfResults && third <= numberOfResults){
+            listOfCheckboxes.get(first).click();
+            listOfCheckboxes.get(second).click();
+            listOfCheckboxes.get(third).click();
 
-            firstText = elementIsLocated(By.xpath(String.format(RESULT_CHECKBOX, first + 1))).getAttribute("id");
-            secondText = elementIsLocated(By.xpath(String.format(RESULT_CHECKBOX, second + 1))).getAttribute("id");
-            thirdText = elementIsLocated(By.xpath(String.format(RESULT_CHECKBOX, third + 1))).getAttribute("id");
+            firstResult = listOfCheckboxes.get(first).getAttribute("id");
+            secondResult = listOfCheckboxes.get(second).getAttribute("id");
+            thirdResult = listOfCheckboxes.get(third).getAttribute("id");
+            Log4Test.info("Select " + first + ", " + second + ", " + third + " results in list");
         }
         else {
-            Log4Test.error("There are only " + getNumberOfResults() + " results.");
+            Log4Test.error("There are only " + numberOfResults + " results.");
+            Assert.fail();
         }
     }
 
     public void clickShowSelected(){
         elementIsLocated(getLocator("showSelectedResults")).click();
+        Log4Test.info("Click Show Selected results");
     }
 
 }
