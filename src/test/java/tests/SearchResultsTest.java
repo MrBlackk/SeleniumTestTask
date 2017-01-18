@@ -49,7 +49,6 @@ public class SearchResultsTest extends TestBase{
     public void sortResultsAndOpenAdvancedSearch(){
         assertTrue(searchResultsPage.isOpened(TestData.SEARCH_RESULTS_RU_URL));
         searchResultsPage.sortByPrice();
-        searchResultsPage.clickSaleButton();
         searchResultsPage.openAdvancedSearch();
     }
 

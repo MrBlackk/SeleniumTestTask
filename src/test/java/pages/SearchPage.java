@@ -14,8 +14,8 @@ public class SearchPage extends GeneralPage {
         elementIsLocated(getLocator("searchPhrase")).sendKeys(phrase);
         Thread.sleep(1000); // waiting for results
 
-        if (elementIsLocated(getLocator("firstElementInList")).getText().contains(phrase)){
-            elementIsLocated(getLocator("firstElementInList")).click();
+        if (elementIsLocated(getLocator("secondElementInList")).getText().contains(phrase)){
+            elementIsLocated(getLocator("secondElementInList")).click();
             Log4Test.info("Search phrase: " + phrase);
         }
         else {

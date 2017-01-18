@@ -25,11 +25,6 @@ public class SearchResultsPage extends GeneralPage {
         Log4Test.info("Click sort by price");
     }
 
-    public void clickSaleButton(){
-        elementIsLocated(getLocator("saleButton")).click();
-        Log4Test.info("Click Sales button");
-    }
-
     public void openAdvancedSearch(){
         elementIsLocated(getLocator("advancedSearch")).click();
         Log4Test.info("Click Advanced search");

@@ -20,7 +20,7 @@ public class TestData {
     public static final String SHOW_SELECTED_RESULTS_RU_URL = "https://www.ss.lv/ru/show-selected/";
 
     //Test Data
-    public static final String SEARCH_PHRASE = "Персональные компьютеры";
+    public static final String SEARCH_PHRASE = "Компьютеры";
     public static final String CITY_REGION = "Рига";
     public static final String SEARCH_PERIOD = "За последний месяц";
     public static final int MIN_PRICE = 0;
